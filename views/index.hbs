@@ -1,0 +1,60 @@
+<h2>Users page</h2>
+<button class="btn btn-small" type="submit" id="select-all">Select All</button>
+<form action="/block" method="POST" style="display: contents;">
+  <button class="btn btn-small" type="submit" id="block-user" name="blockUser" value="" onclick="this.value = getSelectUserId()">Block</button>
+</form>
+<form action="/unblock" method="POST" style="display: contents;">
+  <button class="btn btn-small" type="submit" id="unblock-user" name="unBlockUser" value="" onclick="this.value = getSelectUserId()">Unblock</button>
+</form>
+<form action="/deleted" method="POST" style="display: contents;">
+  <button class="btn btn-small" type="submit" id="deleted-user" name="deletedUser" value="" onclick="this.value = getSelectUserId()">Delete</button>
+</form>
+  {{#if todos.length}}
+      <table>
+        <thead>
+          <tr>
+            <th>checkbox</th>
+            <th>id</th>
+            <th>login</th>
+            <th>email</th>
+            <th>date registration</th>
+            <th>date last login</th>
+            <th>status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each todos}}
+            <tr>
+                <td>
+                  <label>
+                    <input type="checkbox"  name="completed" >
+                    <span class="completed"></span>
+                  </label>
+                </td>
+                <td>{{_id}}</td>
+                <td>{{login}}</td>
+                <td>{{email}}</td>
+                <td>{{dateRegistration}}</td>
+                <td>{{dateLastLogIn}}</td>
+                <td>{{status}}</td>
+            </tr>
+          {{/each}}
+      </table>
+{{else}}
+<p>No Users</p>
+{{/if}}
+<script>
+  let selectedUserId = [];
+  let isSelected = false;
+document.querySelector('#select-all').addEventListener('click', function(){
+  document.querySelectorAll('input').forEach(e => isSelected ? e.checked = false: e.checked = true)
+  isSelected = !isSelected;
+})
+
+function getSelectUserId(){
+  let idArray = [];
+  document.querySelectorAll('input:checked').forEach(e => idArray.push(e.parentElement.parentElement.parentElement.cells[1].innerText))
+  return idArray;
+}
+
+</script>

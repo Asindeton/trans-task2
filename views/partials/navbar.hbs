@@ -1,0 +1,26 @@
+<nav class="blue darken-4">
+  <div class="nav-wrapper">
+    <a href="/" class="brand-logo" style="margin-left:10px;">iTrans Task2</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+      {{#if isIndex}}
+      <li class="active"><a href="/">Users</a></li>
+      {{else}}
+      <li><a href="/">Users</a></li>
+      {{/if}}
+
+      {{#if isCreate}}
+      <li class="active"><a href="/create">Registration</a></li>
+      {{else}}
+      <li><a href="/create">Registration</a></li>
+      {{/if}}
+
+{{!--       {{#if isLogin}}
+      <li class="active"><a href="/login">LogIn</a></li>
+      {{else}}
+      <li><a href="/login">LogIn</a></li>
+      {{/if}} --}}
+
+    </ul>
+  </div>
+</nav>
