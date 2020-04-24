@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const Todo = require('../models/Todo')
-const router = Router()
+const router = Router();
 
 router.get('/', async (req, res) => {
   const todos = await Todo.find({})
@@ -33,43 +33,55 @@ router.post('/create', async (req, res) => {
   res.redirect('/')
 })
 
+router.get('/login', (req, res) => {
+  res.render('login', {
+    title: 'login',
+    isLogin: true
+  })
+})
+
+router.post('/login', async (req, res) => {
+  res.redirect('/')
+})
+
+
 router.post('/block', async (req, res) => {
   let userIdArray = req.body.blockUser.split(',');
-  
-  console.log(userIdArray)
-  for(let i = 0; i < userIdArray.length; i++){
-    console.log(userIdArray[i])
-    const todo = await Todo.findById(userIdArray[i])
-    console.log(todo.status)
-    todo.status = 'Blocked'
-    console.log(todo.status)
-    await todo.save()
+  if(userIdArray[0] !== ''){
+    for(let i = 0; i < userIdArray.length; i++){
+      console.log(userIdArray[i])
+      const todo = await Todo.findById(userIdArray[i])
+      console.log(todo.status)
+      todo.status = 'Blocked'
+      console.log(todo.status)
+      await todo.save()
+    }
   }
-  
   res.redirect('/')
 })
 
 router.post('/unblock', async (req, res) => {
-  let userIdArray = req.body.unBlockUser.split(',');
-  
-  console.log(userIdArray)
-  for(let i = 0; i < userIdArray.length; i++){
-    console.log(userIdArray[i])
-    const todo = await Todo.findById(userIdArray[i])
-    console.log(todo.status)
-    todo.status = 'Active'
-    console.log(todo.status)
-    await todo.save()
+  let userIdArray = req.body.unBlockUser.split(','); 
+  console.log(userIdArray.length)
+  if(userIdArray[0] !== ''){
+    for(let i = 0; i < userIdArray.length; i++){
+      console.log(userIdArray[i])
+      const todo = await Todo.findById(userIdArray[i])
+      console.log(todo.status)
+      todo.status = 'Active'
+      console.log(todo.status)
+      await todo.save()
+    }
   }
   res.redirect('/')
 })
 
 router.post('/deleted', async (req, res) => {
   let userIdArray = req.body.deletedUser.split(',');
-  
-  console.log(userIdArray)
-  for(let i = 0; i < userIdArray.length; i++){
-    Todo.deleteOne(userIdArray[i])
+  if(userIdArray[0] !== ''){
+    for(let i = 0; i < userIdArray.length; i++){
+      const todo = await Todo.deleteOne({_id:userIdArray[i]})
+    }
   }
   res.redirect('/')
 })

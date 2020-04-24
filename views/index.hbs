@@ -9,28 +9,7 @@
 <form action="/deleted" method="POST" style="display: contents;">
   <button class="btn btn-small" type="submit" id="deleted-user" name="deletedUser" value="" onclick="this.value = getSelectUserId()">Delete</button>
 </form>
-{{#if todos.length}}
-{{!-- <ul>
-  {{#each todos}}
-  <li class="todo">
-    <form action="/complete" method="POST">
-      <label>
-        {{#if completed}}
-        <input type="checkbox" checked name="completed">
-        <span class="completed">{{_id}} | {{login}} | {{email}} | {{date}}</span>
-        {{else}}
-        <input type="checkbox" name="completed">
-        <span>{{_id}} | {{login}} | {{email}} | {{date}}</span>
-        {{/if}}
-
-        <input type="hidden" value="{{_id}}" name="id">
-
-        <button class="btn btn-small" type="submit">Save</button>
-      </label>
-    </form>
-  </li>
-  {{/each}}
-</ul> --}}
+  {{#if todos.length}}
       <table>
         <thead>
           <tr>
@@ -71,8 +50,6 @@ document.querySelector('#select-all').addEventListener('click', function(){
   document.querySelectorAll('input').forEach(e => isSelected ? e.checked = false: e.checked = true)
   isSelected = !isSelected;
 })
-
-
 
 function getSelectUserId(){
   let idArray = [];
